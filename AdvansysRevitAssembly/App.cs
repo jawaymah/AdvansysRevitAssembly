@@ -163,10 +163,10 @@ namespace AdvansysRevitAssembly
             if (panelName == "Conveyors")
             {
                 PulldownButtonData pullButtonDataBuilding = new PulldownButtonData("Transportation", "Transportation");
-                pullButtonDataBuilding.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "conveyor16.png"), UriKind.Absolute));
-                pullButtonDataBuilding.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "conveyor16.png"), UriKind.Absolute));
+                //pullButtonDataBuilding.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
+                //    "conveyor16.png"), UriKind.Absolute));
+                //pullButtonDataBuilding.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
+                //    "conveyor16.png"), UriKind.Absolute));
 
                 PulldownButtonData pullButtonHeaderSteelData = new PulldownButtonData("Accumulation", "Accumulation");
                 pullButtonHeaderSteelData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
@@ -182,10 +182,10 @@ namespace AdvansysRevitAssembly
 
                 IList<Autodesk.Revit.UI.RibbonItem> stackedPulldownButtons = panel.AddStackedItems(pullButtonDataBuilding, pullButtonHeaderSteelData, pullButtonAccessoriesData);
 
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 1", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor1Command");
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 2", "curved16.png", "AdvansysRevitAssembly.Commands.Conveyor2Command");
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 3", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 4", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Straight Conveyor", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor1Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Curve", "curved16.png", "AdvansysRevitAssembly.Commands.Conveyor2Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Incline", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "ADV2005", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor4Command");
 
                 PulldownButtonData pullButtonDataAlignment = new PulldownButtonData("Alignment", "Alignment");
                 pullButtonDataAlignment.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,

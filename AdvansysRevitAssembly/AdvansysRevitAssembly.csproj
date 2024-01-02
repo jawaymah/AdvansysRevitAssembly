@@ -64,6 +64,7 @@
     <Compile Include="Commands\Conveyor1Command.cs" />
     <Compile Include="Commands\Conveyor2Command.cs" />
     <Compile Include="Commands\Conveyor3Command.cs" />
+    <Compile Include="Commands\Conveyor4Command.cs" />
     <Compile Include="Commands\FabricationManagerDisplayCommand.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Manager\ViewModel\FabricationManagerContext.cs" />

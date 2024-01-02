@@ -20,33 +20,35 @@ namespace AdvansysRevitAssembly.Commands
             try
             {
                 Document doc = commandData.Application.ActiveUIDocument.Document;
+                Family family = FindFamilyByName(doc, "BeltPowerFeederModuleIncline");
+                if (family == null)
+                {
+                    using (Transaction t = new Transaction(doc, "Load Family Instance"))
+                    {
+                        t.Start();
+
+                        // Absolute path to the family file
+                        string familyPath = new Uri(Path.Combine(UIConstants.ButtonFamiliesFolder, "BeltPowerFeederModuleIncline.rfa"), UriKind.Absolute).AbsolutePath;
+
+                        if (!doc.LoadFamily(familyPath, out family))
+                        {
+                            message = "Could not load family.";
+                            t.RollBack();
+                            return Result.Failed;
+                        }
+
+                        t.Commit();
+                    }
+                }
 
 
-                //bool isLoaded = doc.LoadFamilySymbol(@"C:\Users\Jemmy\AppData\Roaming\Autodesk\Revit\Addins\2024\roller7.rfa", "roller7", out FamilySymbol roller);
-                //if (!isLoaded) tr.RollBack();
-                //isLoaded = doc.LoadFamilySymbol(@"C:\Users\Jemmy\AppData\Roaming\Autodesk\Revit\Addins\2024\side channel2.rfa", "side channel2", out FamilySymbol sidechannel2);
-                //if (!isLoaded) tr.RollBack();
-                bool isLoaded = doc.LoadFamilySymbol(@"C:\Users\Jemmy\AppData\Roaming\Autodesk\Revit\Addins\2024\side channel3.rfa", "side channel3", out FamilySymbol familySymbol);
-                //if (!isLoaded) tr.RollBack();
-                //tr.Commit();
-
-                //// Absolute path to the family file
-                //string familyPath = @"C:\Users\Jemmy\AppData\Roaming\Autodesk\Revit\Addins\2024\side channel3.rfa";
-
-                //Family family;
-                //if (!doc.LoadFamily(familyPath, out family))
-                //{
-                //    message = "Could not load family.";
-                //    return Result.Failed;
-                //}
-
-                //// Assume the family has a family symbol (family type)
-                //FamilySymbol familySymbol = null;
-                //foreach (ElementId id in family.GetFamilySymbolIds())
-                //{
-                //    familySymbol = doc.GetElement(id) as FamilySymbol;
-                //    break; // For simplicity, using the first available symbol
-                //}
+                // Assume the family has a family symbol (family type)
+                FamilySymbol familySymbol = null;
+                foreach (ElementId id in family.GetFamilySymbolIds())
+                {
+                    familySymbol = doc.GetElement(id) as FamilySymbol;
+                    break; // For simplicity, using the first available symbol
+                }
 
                 if (familySymbol == null)
                 {
@@ -54,7 +56,18 @@ namespace AdvansysRevitAssembly.Commands
                     return Result.Failed;
                 }
 
-                XYZ location = new XYZ(0, 0, 0); // Location to place the family instance
+                XYZ location = new XYZ(0, 0, 0);
+
+                try
+                {
+                    // Prompt user to pick a point
+                    location = commandData.Application.ActiveUIDocument.Selection.PickPoint("Please pick a point to place the family");
+                }
+                catch (Exception)
+                {
+
+
+                }
 
                 using (Transaction t = new Transaction(doc, "Place Family Instance"))
                 {
@@ -76,6 +89,22 @@ namespace AdvansysRevitAssembly.Commands
                 message = ex.Message;
                 return Result.Failed;
             }
+        }
+
+        public Family FindFamilyByName(Document doc, string familyName)
+        {
+            FilteredElementCollector collector = new FilteredElementCollector(doc);
+            collector.OfClass(typeof(Family));
+
+            foreach (Family family in collector)
+            {
+                if (family.Name.Equals(familyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return family;
+                }
+            }
+
+            return null;
         }
     }
 
