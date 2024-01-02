@@ -98,9 +98,6 @@
     <None Include="Resources\add32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bom32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\edit16.png" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +124,75 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\adapter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\allignment16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\auto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bom32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\building.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\controls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\conv16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\conveyor16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\curved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\curved16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dimension32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gappingconv16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\headersteel16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inclined32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\palletconveyor32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resale32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sortandmerge16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\specialfunction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\support16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\supportbracing16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\supportspecial16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

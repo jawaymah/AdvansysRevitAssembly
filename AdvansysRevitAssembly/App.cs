@@ -164,64 +164,64 @@ namespace AdvansysRevitAssembly
             {
                 PulldownButtonData pullButtonDataBuilding = new PulldownButtonData("Transportation", "Transportation");
                 pullButtonDataBuilding.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "conveyor16.png"), UriKind.Absolute));
                 pullButtonDataBuilding.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "conveyor16.png"), UriKind.Absolute));
 
                 PulldownButtonData pullButtonHeaderSteelData = new PulldownButtonData("Accumulation", "Accumulation");
                 pullButtonHeaderSteelData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "curved.png"), UriKind.Absolute));
                 pullButtonHeaderSteelData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "curved.png"), UriKind.Absolute));
 
                 PulldownButtonData pullButtonAccessoriesData = new PulldownButtonData("Gapping", "Gapping");
                 pullButtonAccessoriesData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "gappingconv16.png"), UriKind.Absolute));
                 pullButtonAccessoriesData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "gappingconv16.png"), UriKind.Absolute));
 
                 IList<Autodesk.Revit.UI.RibbonItem> stackedPulldownButtons = panel.AddStackedItems(pullButtonDataBuilding, pullButtonHeaderSteelData, pullButtonAccessoriesData);
 
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 1", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor1Command");
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 2", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor2Command");
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 3", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
-                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 4", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 1", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor1Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 2", "curved16.png", "AdvansysRevitAssembly.Commands.Conveyor2Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 3", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
+                AddConveyorItem(stackedPulldownButtons[0] as PulldownButton, "Conveyor 4", "conv16.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
 
                 PulldownButtonData pullButtonDataAlignment = new PulldownButtonData("Alignment", "Alignment");
                 pullButtonDataAlignment.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "allignment16.png"), UriKind.Absolute));
                 pullButtonDataAlignment.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "allignment16.png"), UriKind.Absolute));
 
 
 
                 PulldownButtonData pullButtonSortandMergeData = new PulldownButtonData("SortandMerge", "Sort and Merge");
                 pullButtonSortandMergeData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "sortandmerge16.png"), UriKind.Absolute));
                 pullButtonSortandMergeData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "sortandmerge16.png"), UriKind.Absolute));
 
                 PulldownButtonData pullButtonSpecialFunctionData = new PulldownButtonData("SpecialFunction", "Special Function");
                 pullButtonSpecialFunctionData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "specialfunction.png"), UriKind.Absolute));
                 pullButtonSpecialFunctionData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "specialfunction.png"), UriKind.Absolute));
 
                 IList<Autodesk.Revit.UI.RibbonItem> stackedPulldownButtons2 = panel.AddStackedItems(pullButtonDataAlignment, pullButtonSortandMergeData, pullButtonSpecialFunctionData);
 
                 PushButtonData buttonDataAdd = new PushButtonData("Add", "Add", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 //buttonDataAdd.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
                 buttonDataAdd.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-    "add32.png"), UriKind.Absolute));
+    "curved.png"), UriKind.Absolute));
                 buttonDataAdd.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "curved.png"), UriKind.Absolute));
                 Autodesk.Revit.UI.RibbonItem buttonDataAddPulldownButtons2 = panel.AddItem(buttonDataAdd);
 
                 PushButtonData buttonDataDimensions = new PushButtonData("Dimensions", "Dimensions", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 buttonDataDimensions.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-"add32.png"), UriKind.Absolute));
+"dimension32.png"), UriKind.Absolute));
                 buttonDataDimensions.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "dimension32.png"), UriKind.Absolute));
                 //buttonDataDimensions.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
                 Autodesk.Revit.UI.RibbonItem PulldownButtons3 = panel.AddItem(buttonDataDimensions);
             }
@@ -229,23 +229,23 @@ namespace AdvansysRevitAssembly
             {
                 PulldownButtonData pullButtonDataRegular = new PulldownButtonData("Regular", "Regular");
                 pullButtonDataRegular.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "support16.png"), UriKind.Absolute));
                 pullButtonDataRegular.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "support16.png"), UriKind.Absolute));
 
 
 
                 PulldownButtonData pullButtonBracingData = new PulldownButtonData("Bracing", "Bracing");
                 pullButtonBracingData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "supportbracing16.png"), UriKind.Absolute));
                 pullButtonBracingData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "supportbracing16.png"), UriKind.Absolute));
 
                 PulldownButtonData pullButtonSpecialData = new PulldownButtonData("Special", "Special");
                 pullButtonSpecialData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "supportspecial16.png"), UriKind.Absolute));
                 pullButtonSpecialData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "supportspecial16.png"), UriKind.Absolute));
 
                 IList<Autodesk.Revit.UI.RibbonItem> stackedPulldownButtons = panel.AddStackedItems(pullButtonDataRegular, pullButtonBracingData, pullButtonSpecialData);
 
@@ -254,9 +254,9 @@ namespace AdvansysRevitAssembly
             {
                 PushButtonData buttonData = new PushButtonData("PalletConveyor", "Pallet Conveyor", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 buttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-    "add32.png"), UriKind.Absolute));
+    "palletconveyor32.png"), UriKind.Absolute));
                 buttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "palletconveyor32.png"), UriKind.Absolute));
                 //buttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
                 Autodesk.Revit.UI.RibbonItem stackedPulldownButtons2 = panel.AddItem(buttonData);
             }
@@ -264,32 +264,32 @@ namespace AdvansysRevitAssembly
             {
                 PushButtonData buttonData = new PushButtonData("Resale", "Resale", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 buttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-"add32.png"), UriKind.Absolute));
+"resale32.png"), UriKind.Absolute));
                 buttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "resale32.png"), UriKind.Absolute));
                 Autodesk.Revit.UI.RibbonItem stackedPulldownButtons2 = panel.AddItem(buttonData);
             }
             if (panelName == "Structural")
             {
                 PulldownButtonData pullButtonDataBuilding = new PulldownButtonData("Building", "Building");
                 pullButtonDataBuilding.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "building.png"), UriKind.Absolute));
                 pullButtonDataBuilding.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "Colors16.png"), UriKind.Absolute));
+                    "building.png"), UriKind.Absolute));
 
 
 
                 PulldownButtonData pullButtonHeaderSteelData = new PulldownButtonData("HeaderSteel", "HeaderSteel");
                 pullButtonHeaderSteelData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "headersteel16.png"), UriKind.Absolute));
                 pullButtonHeaderSteelData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "headersteel16.png"), UriKind.Absolute));
 
                 PulldownButtonData pullButtonAccessoriesData = new PulldownButtonData("Accessories", "Accessories");
                 pullButtonAccessoriesData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "adapter.png"), UriKind.Absolute));
                 pullButtonAccessoriesData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "QR16.png"), UriKind.Absolute));
+                    "adapter.png"), UriKind.Absolute));
 
                 IList<Autodesk.Revit.UI.RibbonItem> stackedPulldownButtons = panel.AddStackedItems(pullButtonDataBuilding, pullButtonHeaderSteelData, pullButtonAccessoriesData);
 
@@ -299,29 +299,29 @@ namespace AdvansysRevitAssembly
                 PushButtonData AutomaticbuttonData = new PushButtonData("Automatic", "Automatic", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 //AutomaticbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
                 AutomaticbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-"add32.png"), UriKind.Absolute));
+"auto.png"), UriKind.Absolute));
                 AutomaticbuttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "auto.png"), UriKind.Absolute));
                 PushButtonData EditbuttonData = new PushButtonData("  Edit", "Edit", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 //EditbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
                 EditbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-"add32.png"), UriKind.Absolute));
+"edit.png"), UriKind.Absolute));
                 EditbuttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "edit.png"), UriKind.Absolute));
                 PushButtonData DeletebuttonData = new PushButtonData(" Delete", "Delete", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 //DeletebuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
                 DeletebuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-"add32.png"), UriKind.Absolute));
+"delete.png"), UriKind.Absolute));
                 DeletebuttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "delete.png"), UriKind.Absolute));
                 IList<Autodesk.Revit.UI.RibbonItem> stackedPulldownButtons = panel.AddStackedItems(AutomaticbuttonData, EditbuttonData, DeletebuttonData);
 
                 PushButtonData AddbuttonData = new PushButtonData("AddItem", "Add Item", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 //EditbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
                 AddbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-"add32.png"), UriKind.Absolute));
+"bom32.png"), UriKind.Absolute));
                 AddbuttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "bom32.png"), UriKind.Absolute));
                 //PushButtonData SearchbuttonData = new PushButtonData("Search", "Search", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 //DeletebuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
 
@@ -336,9 +336,9 @@ namespace AdvansysRevitAssembly
                 PulldownButtonData pdData = new PulldownButtonData("ControlParts", "Control Parts");
                 //pdData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "conveyor32.png"), UriKind.Absolute));
                 pdData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-"add32.png"), UriKind.Absolute));
+"controls.png"), UriKind.Absolute));
                 pdData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
-                    "add32.png"), UriKind.Absolute));
+                    "controls.png"), UriKind.Absolute));
                 PulldownButton pdButton = panel.AddItem(pdData) as PulldownButton;
 
                 // Add conveyors to the pulldown button
@@ -358,7 +358,7 @@ namespace AdvansysRevitAssembly
                 //PushButtonData SearchbuttonData = new PushButtonData("Search", "Search", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 //DeletebuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
 
-                Autodesk.Revit.UI.RibbonItem stackedPulldownButtons2 = panel.AddItem(AddbuttonData);
+                //Autodesk.Revit.UI.RibbonItem stackedPulldownButtons2 = panel.AddItem(AddbuttonData);
             }
             // Add other panels as necessary
         }
@@ -369,7 +369,8 @@ namespace AdvansysRevitAssembly
 
             //buttonData.LargeImage = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
             //buttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder, imagePath), UriKind.Absolute));
-            buttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", imagePath), UriKind.Absolute));
+
+            buttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder, imagePath), UriKind.Absolute));
 
             pdButton.AddPushButton(buttonData);
         }
