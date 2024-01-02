@@ -5,7 +5,7 @@
     <Assembly>AdvansysRevitAssembly\AdvansysRevitAssembly.dll</Assembly>
     <FullClassName>AdvansysRevitAssembly.App</FullClassName>
     <ClientId>938f1cf6-4298-445c-89a1-9aee3aa59408</ClientId>
-    <VendorId>com.typepad.thebuildingcoder</VendorId>
-    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+    <VendorId>Advansys-ESC</VendorId>
+    <VendorDescription>Advansys-ESC</VendorDescription>
   </AddIn>
 </RevitAddIns>
