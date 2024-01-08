@@ -18,12 +18,13 @@ namespace AdvansysRevitAssembly.Logic
             // Open the document for writing
             document.Open();
 
-            string familyPath = new Uri(Path.Combine(UIConstants.ButtonIconsFolder, "Daifuku_logo.png"), UriKind.Absolute).AbsolutePath;
-            // Add a logo image
-            Image logo = Image.GetInstance(familyPath); // Replace with your logo path
-            logo.ScaleToFit(140f, 120f); // Scale the image to fit
-            logo.Alignment = Element.ALIGN_RIGHT;
-            document.Add(logo);
+            // Create a table with the appropriate number of columns
+            PdfPTable headertable = new PdfPTable(3); // Adjust the number of columns as needed
+            headertable.WidthPercentage = 100;
+
+            // Set custom widths for each column
+            float[] columnWidths = new float[] { 0.8f, 0.9f, 1.1f }; // The first column is twice as wide as the second and third
+            headertable.SetWidths(columnWidths);
 
             // Set font
             BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -33,25 +34,61 @@ namespace AdvansysRevitAssembly.Logic
             Font cellFont = new Font(baseFont, 8);
             int headerBottomPadding = 5;
             float headerBottomWidth = 1f;
-            // Add text elements
-            //document.Add(new Paragraph("SALES ORDER NUMBER: 397788AA", normalFont));
+
+            // Create an empty cell
+            PdfPCell emptyCell = new PdfPCell(new Phrase(""));
+            emptyCell.Border = PdfPCell.NO_BORDER;
+            headertable.AddCell(emptyCell);
 
             // Adding a header
-            Paragraph header1 = new Paragraph("CONVEYOR INSTALLER REPORT", headerFont);
-            header1.Alignment = Element.ALIGN_CENTER;
-            document.Add(header1);
+            PdfPCell header1 = new PdfPCell(new Phrase("CONVEYOR INSTALLER REPORT", headerFont));
+            header1.HorizontalAlignment = Element.ALIGN_RIGHT;
+            header1.Border = PdfPCell.NO_BORDER;
+            headertable.AddCell(header1);
+
+
+            string familyPath = new Uri(Path.Combine(UIConstants.ButtonIconsFolder, "Daifuku_logo.png"), UriKind.Absolute).AbsolutePath;
+            // Add a logo image
+            Image logo = Image.GetInstance(familyPath); // Replace with your logo path
+            //logo.ScaleToFit(140f, 120f); // Scale the image to fit
+            logo.ScaleToFit(100f, 80f); // Scale the image to fit
+
+            PdfPCell imageCell = new PdfPCell(logo);
+            imageCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+            imageCell.Border = PdfPCell.NO_BORDER;
+            imageCell.PaddingBottom = headerBottomPadding * 2.0f;
+            headertable.AddCell(imageCell);
+
+            headertable.AddCell(emptyCell);
+            emptyCell.Border = PdfPCell.NO_BORDER;
+            headertable.AddCell(emptyCell);
+            emptyCell.Border = PdfPCell.NO_BORDER;
+            PdfPCell page = new PdfPCell(new Phrase("PAGE: 1 OF 1", cellFont));
+            page.HorizontalAlignment = Element.ALIGN_LEFT;
+            page.Border = PdfPCell.NO_BORDER;
+            headertable.AddCell(page);
 
             // Adding a header
-            Paragraph header2 = new Paragraph("SALES ORDER NUMBER: 397788AA", headerFont);
-            header2.Alignment = Element.ALIGN_CENTER;
-            document.Add(header2);
+            PdfPCell header2 = new PdfPCell(new Phrase("SALES ORDER NUMBER: 397788AA", headerFont));
+            header2.HorizontalAlignment = Element.ALIGN_CENTER;
+            header2.Border = PdfPCell.NO_BORDER;
+            header2.PaddingBottom = headerBottomPadding*2.0f;
+            headertable.AddCell(header2);
 
+            headertable.AddCell(emptyCell);
+
+            PdfPCell printed = new PdfPCell(new Phrase($"PRINTED: {DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss  tt")}", cellFont));
+            printed.HorizontalAlignment = Element.ALIGN_LEFT;
+            printed.Border = PdfPCell.NO_BORDER;
+            headertable.AddCell(printed);
+
+            document.Add(headertable);
             // Create a table with the appropriate number of columns
             PdfPTable table = new PdfPTable(6); // Adjust the number of columns as needed
             table.WidthPercentage = 100;
 
             // Set custom widths for each column
-            float[] columnWidths = new float[] { 1, 1, 1 , 1, 1, 4}; // The first column is twice as wide as the second and third
+            columnWidths = new float[] { 1, 1, 1 , 1, 1, 4}; // The first column is twice as wide as the second and third
             table.SetWidths(columnWidths);
 
 
