@@ -301,7 +301,7 @@ namespace AdvansysRevitAssembly
             }
             if (panelName == "Bill Of Material")
             {
-                PushButtonData AutomaticbuttonData = new PushButtonData("Automatic", "Automatic", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
+                PushButtonData AutomaticbuttonData = new PushButtonData("Automatic", "Automatic", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.AutomaticBOMCommand");
                 //AutomaticbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
 //                AutomaticbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
 //"auto.png"), UriKind.Absolute));

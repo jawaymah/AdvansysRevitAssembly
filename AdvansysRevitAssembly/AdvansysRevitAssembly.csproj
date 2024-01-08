@@ -34,6 +34,12 @@
     <Reference Include="AdWindows">
       <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2024\AdWindows.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="RevitAPI">
@@ -61,6 +67,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Commands\AutomaticBOMCommand.cs" />
     <Compile Include="Commands\Conveyor1Command.cs" />
     <Compile Include="Commands\Conveyor2Command.cs" />
     <Compile Include="Commands\Conveyor3Command.cs" />
@@ -70,6 +77,7 @@
     <Compile Include="Commands\ConveyorADV3Command.cs" />
     <Compile Include="Commands\FabricationManagerDisplayCommand.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Logic\BomPdfCreator.cs" />
     <Compile Include="Manager\ViewModel\FabricationManagerContext.cs" />
     <Compile Include="Manager\ViewModel\FabricationManagerDisplayCore.cs" />
     <Compile Include="Manager\ViewModel\FabricationManagerViewModel.cs" />
@@ -87,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AdvansysApp.addin" />
+    <None Include="packages.config" />
     <None Include="Resources\conveyor.rfa" />
     <None Include="Resources\roller7.rfa" />
     <None Include="Resources\side channel2.rfa" />
@@ -121,7 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Families\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Manager\Views\FabricationManagerView.xaml">
@@ -197,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\supportspecial16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Daifuku_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
