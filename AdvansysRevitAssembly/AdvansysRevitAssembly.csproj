@@ -207,6 +207,7 @@
     <None Include="Resources\supportspecial16.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\advansyslogo.png" />
     <Content Include="Images\Daifuku_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

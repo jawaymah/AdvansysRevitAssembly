@@ -51,7 +51,7 @@ namespace AdvansysRevitAssembly.Logic
             // Add a logo image
             Image logo = Image.GetInstance(familyPath); // Replace with your logo path
             //logo.ScaleToFit(140f, 120f); // Scale the image to fit
-            logo.ScaleToFit(100f, 80f); // Scale the image to fit
+            logo.ScaleToFit(100f, 60f); // Scale the image to fit
 
             PdfPCell imageCell = new PdfPCell(logo);
             imageCell.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -164,46 +164,23 @@ namespace AdvansysRevitAssembly.Logic
             // Add the table to the document
             document.Add(table);
 
-            // Close the document
-            document.Close();
-        }
-        static void MainPDF()
-        {
-            // Create a new document
-            Document document = new Document();
 
-            // Create a writer instance
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream("output.pdf", FileMode.Create));
+            // Load the logo image
+            string advansyslogopath = new Uri(Path.Combine(UIConstants.ButtonIconsFolder, "advansyslogo.png"), UriKind.Absolute).AbsolutePath;
+            Image advansyslogo = Image.GetInstance(advansyslogopath); // Replace with your logo path
+            advansyslogo.ScaleAbsolute(100f, 50f); // Set the absolute size of the logo
 
-            // Open the document for writing
-            document.Open();
+            // Get the PDF content byte to add image
+            PdfContentByte contentByte = writer.DirectContent;
 
-            // Add a logo image
-            Image logo = Image.GetInstance("path_to_logo.jpg"); // Replace with your logo path
-            logo.ScaleToFit(140f, 120f); // Scale the image to fit
-            logo.Alignment = Element.ALIGN_LEFT;
-            document.Add(logo);
+            // Calculate position for the image (bottom right)
+            float xPosition = document.PageSize.Width - logo.ScaledWidth - 10; // 10 is a margin from the right
+            float yPosition = 10; // 10 is a margin from the bottom
 
-            // Add a header
-            Paragraph header = new Paragraph("Your Header Text", new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
-            header.Alignment = Element.ALIGN_CENTER;
-            document.Add(header);
+            // Add image to the specific position
+            advansyslogo.SetAbsolutePosition(xPosition, yPosition);
+            contentByte.AddImage(advansyslogo);
 
-            // Add a table
-            PdfPTable table = new PdfPTable(3); // Replace 3 with the number of your columns
-            table.AddCell("Column 1 Header");
-            table.AddCell("Column 2 Header");
-            table.AddCell("Column 3 Header");
-            // Add rows
-            table.AddCell("Row 1, Col 1");
-            table.AddCell("Row 1, Col 2");
-            table.AddCell("Row 1, Col 3");
-            // Add more cells as needed
-            document.Add(table);
-
-            // Add paragraphs
-            document.Add(new Paragraph("Your paragraph text here."));
-            // Add more paragraphs as needed
 
             // Close the document
             document.Close();
