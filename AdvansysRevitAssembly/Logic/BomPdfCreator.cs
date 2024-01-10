@@ -3,17 +3,62 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Windows.Forms; // Needed for SaveFileDialog
+using Autodesk.Revit.UI;
+using System.Diagnostics;
+
 namespace AdvansysRevitAssembly.Logic
 {
     public static class BomPdfCreator
     {
-        public static void Create()
+        public static Result CreateReport(ref string message)
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+                saveFileDialog.Title = "Save PDF File";
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFilePath = saveFileDialog.FileName;
+
+                    // Ensure the filename ends with .pdf
+                    if (!selectedFilePath.ToLower().EndsWith(".pdf"))
+                    {
+                        selectedFilePath += ".pdf";
+                    }
+
+                    // Now you can proceed to save your PDF at 'selectedFilePath'
+                    // Example: Export your Revit view to PDF
+                    Create(selectedFilePath);
+                    // Open the PDF file with the default PDF viewer
+                    try
+                    {
+                        Process.Start(selectedFilePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error opening PDF file: " + ex.Message);
+                    }
+                }
+
+                return Result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                return Result.Failed;
+            }
+        }
+        public static void Create(string exportpath)
         {
             // Create a new document
             Document document = new Document(PageSize.A4, 25, 25, 30, 30);
 
             // Create a writer instance
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream("example.pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(exportpath, FileMode.Create));
 
             // Open the document for writing
             document.Open();
@@ -70,12 +115,12 @@ namespace AdvansysRevitAssembly.Logic
 
             // Adding a header
             PdfPCell header2 = new PdfPCell(new Phrase("SALES ORDER NUMBER: 397788AA", headerFont));
-            header2.HorizontalAlignment = Element.ALIGN_CENTER;
+            header2.HorizontalAlignment = Element.ALIGN_LEFT;
             header2.Border = PdfPCell.NO_BORDER;
+            header2.Colspan = 2;
             header2.PaddingBottom = headerBottomPadding*2.0f;
             headertable.AddCell(header2);
 
-            headertable.AddCell(emptyCell);
 
             PdfPCell printed = new PdfPCell(new Phrase($"PRINTED: {DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss  tt")}", cellFont));
             printed.HorizontalAlignment = Element.ALIGN_LEFT;
