@@ -67,7 +67,6 @@ namespace AdvansysRevitAssembly.Logic
             // Create a writer instance
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(exportpath, FileMode.Create));
 
-            document.AddHeader = new HeaderFooter(new Phrase("Header Text"), false);
             // Open the document for writing
             document.Open();
 
@@ -228,7 +227,7 @@ namespace AdvansysRevitAssembly.Logic
                 {
                     CreateRow2005(group.ToList(), ref table, cellFont);
                 }
-                else if (group.Key.Contains("2005"))
+                else if (group.Key.Contains("3005"))
                 {
                     CreateRow3005(group.ToList(), ref table, cellFont);
                 }
