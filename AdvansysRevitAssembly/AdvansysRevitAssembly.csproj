@@ -78,7 +78,10 @@
     <Compile Include="Commands\ConveyorADV3Command.cs" />
     <Compile Include="Commands\FabricationManagerDisplayCommand.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Logic\Unit1005BOMGenerator.cs" />
     <Compile Include="Logic\BomPdfCreator.cs" />
+    <Compile Include="Logic\Unit2005BOMGenerator.cs" />
+    <Compile Include="Logic\Unit3005BOMGenerator.cs" />
     <Compile Include="Manager\ViewModel\FabricationManagerContext.cs" />
     <Compile Include="Manager\ViewModel\FabricationManagerDisplayCore.cs" />
     <Compile Include="Manager\ViewModel\FabricationManagerViewModel.cs" />

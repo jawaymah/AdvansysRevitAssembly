@@ -20,9 +20,9 @@ namespace AdvansysRevitAssembly.Commands
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             Document doc = commandData.Application.ActiveUIDocument.Document;
-            var selection = commandData.Application.ActiveUIDocument.Selection.GetElementIds();
+            var selection = commandData.Application.ActiveUIDocument.Selection.GetElementIds().ToList();
             Result res = CreateSchedule(commandData, ref message);
-            return BomPdfCreator.CreateReport(ref message);
+            return BomPdfCreator.CreateReport(ref message, doc, selection);
         }
         public Result CreateSchedule(ExternalCommandData commandData, ref string message)
         {

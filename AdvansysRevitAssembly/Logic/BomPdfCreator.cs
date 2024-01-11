@@ -6,12 +6,16 @@ using iTextSharp.text.pdf;
 using System.Windows.Forms; // Needed for SaveFileDialog
 using Autodesk.Revit.UI;
 using System.Diagnostics;
+using Autodesk.Revit.DB;
+using Element = iTextSharp.text.Element;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdvansysRevitAssembly.Logic
 {
     public static class BomPdfCreator
     {
-        public static Result CreateReport(ref string message)
+        public static Result CreateReport(ref string message, Autodesk.Revit.DB.Document doc, List<ElementId> snapperIds)
         {
             try
             {
@@ -30,9 +34,12 @@ namespace AdvansysRevitAssembly.Logic
                         selectedFilePath += ".pdf";
                     }
 
+                    List<FamilyInstance> instances = new List<FamilyInstance>();
+                    snapperIds.ForEach(s => instances.Add(doc.GetElement(s) as FamilyInstance));
+                    instances = instances.Where(s => s != null).ToList();
                     // Now you can proceed to save your PDF at 'selectedFilePath'
                     // Example: Export your Revit view to PDF
-                    Create(selectedFilePath);
+                    Create(selectedFilePath, instances);
                     // Open the PDF file with the default PDF viewer
                     try
                     {
@@ -52,14 +59,15 @@ namespace AdvansysRevitAssembly.Logic
                 return Result.Failed;
             }
         }
-        public static void Create(string exportpath)
+        public static void Create(string exportpath, List<FamilyInstance> snappers)
         {
             // Create a new document
-            Document document = new Document(PageSize.A4, 25, 25, 30, 30);
+            iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 25, 25, 30, 30);
 
             // Create a writer instance
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(exportpath, FileMode.Create));
 
+            document.AddHeader = new HeaderFooter(new Phrase("Header Text"), false);
             // Open the document for writing
             document.Open();
 
@@ -173,8 +181,7 @@ namespace AdvansysRevitAssembly.Logic
             cell16.VerticalAlignment = Element.ALIGN_BOTTOM;
             cell16.HorizontalAlignment = Element.ALIGN_CENTER;
             cell16.PaddingBottom = headerBottomPadding;
-            PdfPCell[] cellsarr = new PdfPCell[6] { cell11, cell12, cell13,cell14,cell15,cell16};
-            //PdfPRow row1 = new PdfPRow(cellsarr);
+
             table.AddCell(cell11);
             table.AddCell(cell12);
             table.AddCell(cell13);
@@ -182,30 +189,11 @@ namespace AdvansysRevitAssembly.Logic
             table.AddCell(cell15);
             table.AddCell(cell16);
 
+            //foreach (var snapper in snappers)
+            //{
 
-            PdfPCell cell21 = new PdfPCell(new Phrase("1304", cellFont));
-            cell21.Border = PdfPCell.NO_BORDER;
-            cell21.HorizontalAlignment = Element.ALIGN_CENTER;
-            PdfPCell cell22 = new PdfPCell(new Phrase("13 CAR-3280", cellFont));
-            cell22.Border = PdfPCell.NO_BORDER;
-            cell22.HorizontalAlignment = Element.ALIGN_CENTER;
-            cell22.Colspan = 2;
-            PdfPCell cell23 = new PdfPCell(new Phrase("CARB-3283", cellFont));
-            cell23.Border = PdfPCell.NO_BORDER;
-            cell23.HorizontalAlignment = Element.ALIGN_CENTER;
-            PdfPCell cell24 = new PdfPCell(new Phrase("1", cellFont));
-            cell24.Border = PdfPCell.NO_BORDER;
-            cell24.HorizontalAlignment = Element.ALIGN_CENTER;
-            PdfPCell cell25 = new PdfPCell(new Phrase("AR+ C762 ACCUMULATION MODULE \n30NW X 108L- 3 IN ROLLER CENTERS - BELT OVER ROLLER: STRIP \n36 IN ZONES - RIGHT HAND- SIDE- MOUNT ZONE SENSOR \nERSC CARDS \nNOMINAL SPEED 160 \nPAINT CODE:038", cellFont));
-            cell25.Border = PdfPCell.NO_BORDER;
-            PdfPCell[] cellsarr2 = new PdfPCell[5] { cell21, cell22, cell23, cell24, cell25 };
-            //PdfPRow row2 = new PdfPRow(cellsarr2);
-            //table.Rows.Add(row2);
-            table.AddCell(cell21);
-            table.AddCell(cell22);
-            table.AddCell(cell23);
-            table.AddCell(cell24);
-            table.AddCell(cell25);
+            //}
+            CreateRows(snappers, ref table, cellFont);
             // Add the table to the document
             document.Add(table);
 
@@ -229,6 +217,129 @@ namespace AdvansysRevitAssembly.Logic
 
             // Close the document
             document.Close();
+        }
+
+        public static void CreateRows(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        {
+            var groups = instances.GroupBy(s => s.Symbol.Name);
+            foreach (var group in groups)
+            {
+                if (group.Key.Contains("2005"))
+                {
+                    CreateRow2005(group.ToList(), ref table, cellFont);
+                }
+                else if (group.Key.Contains("2005"))
+                {
+                    CreateRow3005(group.ToList(), ref table, cellFont);
+                }
+                else if (group.Key.Contains("1006") || group.Key.Contains("1005"))
+                {
+                    CreateRow1005(group.ToList(), ref table, cellFont);
+                }
+            }
+        }
+        public static void CreateRow3005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        {
+            PdfPCell cell21 = new PdfPCell(new Phrase("3005", cellFont));
+            cell21.Border = PdfPCell.NO_BORDER;
+            cell21.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell22 = new PdfPCell(new Phrase("13 CAR-3280", cellFont));
+            cell22.Border = PdfPCell.NO_BORDER;
+            cell22.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell22.Colspan = 2;
+            PdfPCell cell23 = new PdfPCell(new Phrase("CARB-3283", cellFont));
+            cell23.Border = PdfPCell.NO_BORDER;
+            cell23.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell24 = new PdfPCell(new Phrase(instances.Count.ToString(), cellFont));
+            cell24.Border = PdfPCell.NO_BORDER;
+            cell24.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell25 = new PdfPCell(new Phrase("ADV+3005 Curved Module\nAngle XX DEGREE\nWidth: XXXX - 2 in Center Roller R\nRIGHT HAND", cellFont));
+            cell25.Border = PdfPCell.NO_BORDER;
+            PdfPCell[] cellsarr2 = new PdfPCell[5] { cell21, cell22, cell23, cell24, cell25 };
+
+            table.AddCell(cell21);
+            table.AddCell(cell22);
+            table.AddCell(cell23);
+            table.AddCell(cell24);
+            table.AddCell(cell25);
+            Unit3005BOMGenerator.AddParts(table, cellFont);
+        }
+        public static void CreateRow2005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        {
+            PdfPCell cell21 = new PdfPCell(new Phrase("2005", cellFont));
+            cell21.Border = PdfPCell.NO_BORDER;
+            cell21.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell22 = new PdfPCell(new Phrase("13 CAR-3280", cellFont));
+            cell22.Border = PdfPCell.NO_BORDER;
+            cell22.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell22.Colspan = 2;
+            PdfPCell cell23 = new PdfPCell(new Phrase("CARB-3283", cellFont));
+            cell23.Border = PdfPCell.NO_BORDER;
+            cell23.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell24 = new PdfPCell(new Phrase(instances.Count.ToString(), cellFont));
+            cell24.Border = PdfPCell.NO_BORDER;
+            cell24.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell25 = new PdfPCell(new Phrase("ADV+2005 Accumulation Module\n3\" center roller\nDrive type: Center drive / Right Hand\nWidth: XXXX - OAL:XXXX\nBelt on Roller: WITH / WITHOUT\n36\" ZONE - SIDE-MOUNT ZONE SENSOR", cellFont));
+            cell25.Border = PdfPCell.NO_BORDER;
+            PdfPCell[] cellsarr2 = new PdfPCell[5] { cell21, cell22, cell23, cell24, cell25 };
+
+            table.AddCell(cell21);
+            table.AddCell(cell22);
+            table.AddCell(cell23);
+            table.AddCell(cell24);
+            table.AddCell(cell25);
+            Unit2005BOMGenerator.AddParts(table, cellFont);
+        }
+        public static void CreateRow1005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        {
+            PdfPCell cell21 = new PdfPCell(new Phrase("1005", cellFont));
+            cell21.Border = PdfPCell.NO_BORDER;
+            cell21.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell22 = new PdfPCell(new Phrase("13 CAR-3280", cellFont));
+            cell22.Border = PdfPCell.NO_BORDER;
+            cell22.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell22.Colspan = 2;
+            PdfPCell cell23 = new PdfPCell(new Phrase("CARB-3283", cellFont));
+            cell23.Border = PdfPCell.NO_BORDER;
+            cell23.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell24 = new PdfPCell(new Phrase(instances.Count.ToString(), cellFont));
+            cell24.Border = PdfPCell.NO_BORDER;
+            cell24.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell25 = new PdfPCell(new Phrase("ADV+1005 Inclined\\Declined Module \nDrive type: Center drive / Right Hand\nWidth: XXXX - OAL:XXXX - Angle: XXXX\nBelt on: Roller / Slider", cellFont));
+            cell25.Border = PdfPCell.NO_BORDER;
+            PdfPCell[] cellsarr2 = new PdfPCell[5] { cell21, cell22, cell23, cell24, cell25 };
+
+            table.AddCell(cell21);
+            table.AddCell(cell22);
+            table.AddCell(cell23);
+            table.AddCell(cell24);
+            table.AddCell(cell25);
+            Unit1005BOMGenerator.AddParts(table, cellFont);
+        }
+        public static void AddTableRow(string convNo, string soLineNo, string soPartNo, string automationPartNo, string qty, string description, PdfPTable table, Font cellFont)
+        {
+            PdfPCell cell21 = new PdfPCell(new Phrase(convNo, cellFont));
+            cell21.Border = PdfPCell.NO_BORDER;
+            cell21.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell22 = new PdfPCell(new Phrase(soLineNo, cellFont));
+            cell22.Border = PdfPCell.NO_BORDER;
+            cell22.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell22.Colspan = 2;
+            PdfPCell cell23 = new PdfPCell(new Phrase(soPartNo, cellFont));
+            cell23.Border = PdfPCell.NO_BORDER;
+            cell23.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell24 = new PdfPCell(new Phrase(qty, cellFont));
+            cell24.Border = PdfPCell.NO_BORDER;
+            cell24.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell cell25 = new PdfPCell(new Phrase(description, cellFont));
+            cell25.Border = PdfPCell.NO_BORDER;
+            PdfPCell[] cellsarr2 = new PdfPCell[5] { cell21, cell22, cell23, cell24, cell25 };
+
+            table.AddCell(cell21);
+            table.AddCell(cell22);
+            table.AddCell(cell23);
+            table.AddCell(cell24);
+            table.AddCell(cell25);
         }
     }
 }
