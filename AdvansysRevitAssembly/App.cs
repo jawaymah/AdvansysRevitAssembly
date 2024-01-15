@@ -301,13 +301,13 @@ namespace AdvansysRevitAssembly
             }
             if (panelName == "Bill Of Material")
             {
-                PushButtonData AutomaticbuttonData = new PushButtonData("Automatic", "Automatic", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.AutomaticBOMCommand");
+                PushButtonData AutomaticbuttonData = new PushButtonData("Export", "Export", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.AutomaticBOMCommand");
                 //AutomaticbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(@"C:\Users\Jemmy\source\repos\AdvansysRevitAssembly\AdvansysRevitAssembly\Resources", "add32.png"), UriKind.Absolute));
 //                AutomaticbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
 //"auto.png"), UriKind.Absolute));
 //                AutomaticbuttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
 //                    "auto.png"), UriKind.Absolute));
-                PushButtonData EditbuttonData = new PushButtonData("  Edit", "Edit", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.Conveyor2Command");
+                PushButtonData EditbuttonData = new PushButtonData("CreateSchedule", "Create Schedule", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.AutomaticBOMScheduleCommand");
 //                EditbuttonData.LargeImage = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,
 //"edit.png"), UriKind.Absolute));
 //                EditbuttonData.Image = new BitmapImage(new Uri(Path.Combine(UIConstants.ButtonIconsFolder,

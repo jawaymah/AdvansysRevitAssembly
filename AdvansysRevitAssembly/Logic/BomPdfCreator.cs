@@ -39,7 +39,7 @@ namespace AdvansysRevitAssembly.Logic
                     instances = instances.Where(s => s != null).ToList();
                     // Now you can proceed to save your PDF at 'selectedFilePath'
                     // Example: Export your Revit view to PDF
-                    Create(selectedFilePath, instances);
+                    Create(selectedFilePath, instances, doc);
                     // Open the PDF file with the default PDF viewer
                     try
                     {
@@ -59,14 +59,14 @@ namespace AdvansysRevitAssembly.Logic
                 return Result.Failed;
             }
         }
-        public static void Create(string exportpath, List<FamilyInstance> snappers)
+        public static void Create(string exportpath, List<FamilyInstance> snappers , Autodesk.Revit.DB.Document doc)
         {
             // Create a new document
-            iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 25, 25, 30, 30);
-
+            iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4, 35f, 35f, 85f, 55f);
+            //iTextSharp.text.Document document = new iTextSharp.text.Document(PageSize.A4);
             // Create a writer instance
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(exportpath, FileMode.Create));
-
+            writer.PageEvent = new MyPageEventHandler();
             // Open the document for writing
             document.Open();
 
@@ -90,13 +90,13 @@ namespace AdvansysRevitAssembly.Logic
             // Create an empty cell
             PdfPCell emptyCell = new PdfPCell(new Phrase(""));
             emptyCell.Border = PdfPCell.NO_BORDER;
-            headertable.AddCell(emptyCell);
+            //headertable.AddCell(emptyCell);
 
             // Adding a header
-            PdfPCell header1 = new PdfPCell(new Phrase("CONVEYOR INSTALLER REPORT", headerFont));
+            PdfPCell header1 = new PdfPCell();// new PdfPCell(new Phrase("CONVEYOR INSTALLER REPORT", headerFont));
             header1.HorizontalAlignment = Element.ALIGN_RIGHT;
             header1.Border = PdfPCell.NO_BORDER;
-            headertable.AddCell(header1);
+            //headertable.AddCell(header1);
 
 
             string familyPath = new Uri(Path.Combine(UIConstants.ButtonIconsFolder, "Daifuku_logo.png"), UriKind.Absolute).AbsolutePath;
@@ -105,33 +105,35 @@ namespace AdvansysRevitAssembly.Logic
             //logo.ScaleToFit(140f, 120f); // Scale the image to fit
             logo.ScaleToFit(100f, 60f); // Scale the image to fit
 
-            PdfPCell imageCell = new PdfPCell(logo);
+            PdfPCell imageCell = new PdfPCell();// new PdfPCell(logo);
             imageCell.HorizontalAlignment = Element.ALIGN_RIGHT;
             imageCell.Border = PdfPCell.NO_BORDER;
-            imageCell.PaddingBottom = headerBottomPadding * 2.0f;
-            headertable.AddCell(imageCell);
+            //imageCell.PaddingBottom = headerBottomPadding * 2.0f;
+            imageCell.PaddingTop = headerBottomPadding * 4.0f;
+            //headertable.AddCell(imageCell);
 
-            headertable.AddCell(emptyCell);
+            //headertable.AddCell(emptyCell);
             emptyCell.Border = PdfPCell.NO_BORDER;
-            headertable.AddCell(emptyCell);
+            //headertable.AddCell(emptyCell);
             emptyCell.Border = PdfPCell.NO_BORDER;
             PdfPCell page = new PdfPCell(new Phrase("PAGE: 1 OF 1", cellFont));
             page.HorizontalAlignment = Element.ALIGN_LEFT;
             page.Border = PdfPCell.NO_BORDER;
-            headertable.AddCell(page);
+            //headertable.AddCell(emptyCell);
 
             // Adding a header
-            PdfPCell header2 = new PdfPCell(new Phrase("SALES ORDER NUMBER: 397788AA", headerFont));
+            PdfPCell header2 = new PdfPCell(); new PdfPCell(new Phrase("SALES ORDER NUMBER: 397788AA", headerFont));
             header2.HorizontalAlignment = Element.ALIGN_LEFT;
             header2.Border = PdfPCell.NO_BORDER;
             header2.Colspan = 2;
-            header2.PaddingBottom = headerBottomPadding*2.0f;
+            //header2.PaddingBottom = headerBottomPadding*2.0f;
             headertable.AddCell(header2);
 
 
             PdfPCell printed = new PdfPCell(new Phrase($"PRINTED: {DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss  tt")}", cellFont));
             printed.HorizontalAlignment = Element.ALIGN_LEFT;
             printed.Border = PdfPCell.NO_BORDER;
+            printed.PaddingLeft = headerBottomPadding * 2.0f;
             headertable.AddCell(printed);
 
             document.Add(headertable);
@@ -192,7 +194,7 @@ namespace AdvansysRevitAssembly.Logic
             //{
 
             //}
-            CreateRows(snappers, ref table, cellFont);
+            CreateRows(snappers, ref table, cellFont, doc);
             // Add the table to the document
             document.Add(table);
 
@@ -211,33 +213,33 @@ namespace AdvansysRevitAssembly.Logic
 
             // Add image to the specific position
             advansyslogo.SetAbsolutePosition(xPosition, yPosition);
-            contentByte.AddImage(advansyslogo);
+            //contentByte.AddImage(advansyslogo);
 
 
             // Close the document
             document.Close();
         }
 
-        public static void CreateRows(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        public static void CreateRows(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont, Autodesk.Revit.DB.Document doc)
         {
             var groups = instances.GroupBy(s => s.Symbol.Name);
             foreach (var group in groups)
             {
                 if (group.Key.Contains("2005"))
                 {
-                    CreateRow2005(group.ToList(), ref table, cellFont);
+                    CreateRow2005(group.ToList(), ref table, cellFont, doc);
                 }
                 else if (group.Key.Contains("3005"))
                 {
-                    CreateRow3005(group.ToList(), ref table, cellFont);
+                    CreateRow3005(group.ToList(), ref table, cellFont, doc);
                 }
                 else if (group.Key.Contains("1006") || group.Key.Contains("1005"))
                 {
-                    CreateRow1005(group.ToList(), ref table, cellFont);
+                    CreateRow1005(group.ToList(), ref table, cellFont, doc);
                 }
             }
         }
-        public static void CreateRow3005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        public static void CreateRow3005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont, Autodesk.Revit.DB.Document doc)
         {
             PdfPCell cell21 = new PdfPCell(new Phrase("3005", cellFont));
             cell21.Border = PdfPCell.NO_BORDER;
@@ -261,9 +263,9 @@ namespace AdvansysRevitAssembly.Logic
             table.AddCell(cell23);
             table.AddCell(cell24);
             table.AddCell(cell25);
-            Unit3005BOMGenerator.AddParts(table, cellFont);
+            Unit3005BOMGenerator.AddParts(table, cellFont, instances, doc);
         }
-        public static void CreateRow2005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        public static void CreateRow2005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont, Autodesk.Revit.DB.Document doc)
         {
             PdfPCell cell21 = new PdfPCell(new Phrase("2005", cellFont));
             cell21.Border = PdfPCell.NO_BORDER;
@@ -287,9 +289,9 @@ namespace AdvansysRevitAssembly.Logic
             table.AddCell(cell23);
             table.AddCell(cell24);
             table.AddCell(cell25);
-            Unit2005BOMGenerator.AddParts(table, cellFont);
+            Unit2005BOMGenerator.AddParts(table, cellFont, instances, doc);
         }
-        public static void CreateRow1005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont)
+        public static void CreateRow1005(List<FamilyInstance> instances, ref PdfPTable table, Font cellFont, Autodesk.Revit.DB.Document doc)
         {
             PdfPCell cell21 = new PdfPCell(new Phrase("1005", cellFont));
             cell21.Border = PdfPCell.NO_BORDER;
@@ -313,7 +315,7 @@ namespace AdvansysRevitAssembly.Logic
             table.AddCell(cell23);
             table.AddCell(cell24);
             table.AddCell(cell25);
-            Unit1005BOMGenerator.AddParts(table, cellFont);
+            Unit1005BOMGenerator.AddParts(table, cellFont, instances, doc);
         }
         public static void AddTableRow(string convNo, string soLineNo, string soPartNo, string automationPartNo, string qty, string description, PdfPTable table, Font cellFont)
         {

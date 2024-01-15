@@ -69,6 +69,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Commands\AutomaticBOMCommand.cs" />
+    <Compile Include="Commands\AutomaticBOMScheduleCommand.cs" />
     <Compile Include="Commands\Conveyor1Command.cs" />
     <Compile Include="Commands\Conveyor2Command.cs" />
     <Compile Include="Commands\Conveyor3Command.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Commands\ConveyorADV3Command.cs" />
     <Compile Include="Commands\FabricationManagerDisplayCommand.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Logic\PDFEventHandler.cs" />
     <Compile Include="Logic\Unit1005BOMGenerator.cs" />
     <Compile Include="Logic\BomPdfCreator.cs" />
     <Compile Include="Logic\Unit2005BOMGenerator.cs" />

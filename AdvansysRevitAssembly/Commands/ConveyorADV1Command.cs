@@ -96,7 +96,7 @@ namespace AdvansysRevitAssembly.Commands
 
         private void UiApp_DialogBoxShowing(object sender, Autodesk.Revit.UI.Events.DialogBoxShowingEventArgs e)
         {
-            e.OverrideResult((int)Autodesk.Revit.UI.TaskDialogResult.CommandLink1);
+            //e.OverrideResult((int)Autodesk.Revit.UI.TaskDialogResult.CommandLink1);
 
         }
 
