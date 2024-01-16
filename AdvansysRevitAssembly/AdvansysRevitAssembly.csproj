@@ -77,8 +77,10 @@
     <Compile Include="Commands\ConveyorADV1Command.cs" />
     <Compile Include="Commands\ConveyorADV2Command.cs" />
     <Compile Include="Commands\ConveyorADV3Command.cs" />
+    <Compile Include="Commands\CreateDrawingCommand.cs" />
     <Compile Include="Commands\FabricationManagerDisplayCommand.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Logic\ElementsViewsHelper\ElementViewsHelper.cs" />
     <Compile Include="Logic\PDFEventHandler.cs" />
     <Compile Include="Logic\Unit1005BOMGenerator.cs" />
     <Compile Include="Logic\BomPdfCreator.cs" />
@@ -101,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AdvansysApp.addin" />
+    <None Include="Families\advansystitleblockE130x42Horizontal.rfa" />
     <None Include="packages.config" />
     <None Include="Resources\conveyor.rfa" />
     <None Include="Resources\roller7.rfa" />
@@ -134,9 +137,7 @@
   <ItemGroup>
     <None Include="Resources\photoeye32.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Families\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Manager\Views\FabricationManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>

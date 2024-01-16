@@ -46,6 +46,7 @@ namespace AdvansysRevitAssembly
                 AddRibbonPanelNew(a, tabName, "Structural");
                 AddRibbonPanelNew(a, tabName, "Bill Of Material");
                 AddRibbonPanelNew(a, tabName, "Control Parts");
+                AddRibbonPanelNew(a, tabName, "Drawings");
                 //AddRibbonPanelNew(a, tabName, "Manager");
                 a.SelectionChanged += Elements_SelectionChanged;
                 CurrentApplication = a;
@@ -341,10 +342,15 @@ namespace AdvansysRevitAssembly
                 PulldownButton pdButton = panel.AddItem(pdData) as PulldownButton;
 
                 // Add conveyors to the pulldown button
-                AddConveyorItem(pdButton, "Control Part 1", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor2Command");
+                AddConveyorItem(pdButton, "Control Part 1", "add32.png", "AdvansysRevitAssembly.Commands.CreateDrawingCommand2");
                 AddConveyorItem(pdButton, "Control Part 2", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor2Command");
                 AddConveyorItem(pdButton, "Control Part 3", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
                 AddConveyorItem(pdButton, "Control Part 4", "add32.png", "AdvansysRevitAssembly.Commands.Conveyor3Command");
+            }
+            if (panelName == "Drawings")
+            {
+                PushButtonData AddbuttonData = new PushButtonData("CreateDrawing", "Create Drawing", Assembly.GetExecutingAssembly().Location, "AdvansysRevitAssembly.Commands.CreateDrawingCommand2");
+                Autodesk.Revit.UI.RibbonItem button = panel.AddItem(AddbuttonData);
             }
             if (panelName == "Manager")
             {
